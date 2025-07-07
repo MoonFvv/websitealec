@@ -95,12 +95,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* REMOVED: filter: contrast(1.1) brightness(0.8); */
         }
 
         .hero-content {
             z-index: 10;
             animation: fadeInUp 2s ease-out;
+            transition: opacity 0.4s ease-out;
         }
 
         @keyframes fadeInUp {
@@ -113,30 +113,9 @@
                 transform: translateY(0);
             }
         }
-
-        /* --- Logo, Name & Title --- */
-        .logo {
-            font-size: 20px;
-            font-weight: 300;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 20px;
-            display: inline-block;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
+        
         h1 {
-            /* font-family: 'Times New Roman', Times, serif; */ /* <-- UPDATED */
+            /* font-family: 'Times New Roman', Times, serif; -- REMOVED for consistency */
             font-size: 64px;
             margin: 20px 0;
             font-weight: 300;
@@ -196,17 +175,22 @@
             width: 100%;
         }
 
-        /* --- Footer & Scroll Arrow --- */
+        /* --- Fixed Footer Links --- */
         .footer-links {
-            position: absolute;
+            position: fixed;
             bottom: 40px;
             left: 40px;
             display: flex;
             align-items: center;
             gap: 30px;
-            z-index: 10;
-            opacity: 0; /* <-- UPDATED */
-            transition: opacity 0.5s ease-in-out; /* <-- UPDATED */
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .footer-links.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .contact-btn {
@@ -240,16 +224,12 @@
             height: 24px;
             opacity: 0.8;
             transition: all 0.3s ease;
-            filter: grayscale(100%);
         }
-
+        
         .social-links a:hover img {
             opacity: 1;
             transform: scale(1.1);
-            filter: grayscale(0%);
         }
-
-        /* REMOVED: Volume Control Styles */
 
         .scroll-down {
             position: absolute;
@@ -355,22 +335,7 @@
             color: white;
             display: block;
         }
-
-        .work-item img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-            border-radius: 8px 8px 0 0;
-            transition: all 0.5s ease;
-            filter: grayscale(20%) contrast(1.1);
-        }
-
-        .work-item:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%) contrast(1.2);
-        }
-
+        
         .work-content {
             padding: 30px;
         }
@@ -438,13 +403,17 @@
             display: block;
         }
         
-        /* --- FPV Drone Showcase Section --- */
+        /* --- Equipment & Services Section --- */
         #services {
-            padding: 120px 50px;
-            background: linear-gradient(135deg, #000000 0%, #111111 100%);
+            padding: 120px 20px;
+            background: #000;
+            color: #fff;
             min-height: 100vh;
         }
-
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
         .services-title {
             font-size: 48px;
             margin-bottom: 80px;
@@ -455,7 +424,6 @@
             text-transform: uppercase;
             position: relative;
         }
-
         .services-title::after {
             content: '';
             position: absolute;
@@ -467,55 +435,158 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .tabs-container {
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
         }
 
-        .service-item {
-            text-align: center;
-            padding: 40px 30px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .tab-link {
+            background-color: transparent;
+            color: #aaa;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            font-size: 16px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
         }
 
-        .service-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
+        .tab-link:hover {
+            color: #fff;
         }
 
-        .service-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            opacity: 0.8;
+        .tab-link.active {
+            color: #fff;
+            background-color: #111;
+            border-bottom: 3px solid #fff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .accordion {
+            background-color: transparent;
+            color: white;
+            cursor: pointer;
+            padding: 18px 0;
+            width: 100%;
+            border: none;
+            border-top: 1px solid #333;
+            text-align: left;
+            outline: none;
+            font-size: 24px;
+            transition: 0.4s;
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+        }
+        .equipment-item:first-child .accordion {
+            border-top: none;
+        }
+
+        .accordion:after {
+            content: '\25B8'; /* Right pointing triangle */
+            font-size: 16px;
+            color: #777;
+            margin-right: 15px;
             transition: transform 0.3s ease;
+            order: -1;
+        }
+
+        .accordion.active:after {
+            transform: rotate(90deg);
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: transparent;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .equipment-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            padding: 40px 0;
         }
         
-        .service-item:hover .service-icon {
-            transform: scale(1.1) rotate(-5deg);
+        .equipment-description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 30px;
         }
 
-        .service-item h3 {
-            font-size: 24px;
-            font-weight: 300;
-            margin-bottom: 15px;
+        .equipment-image-placeholder, .media-placeholder {
+            width: 100%;
+            background-color: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-
-        .service-item p {
-            font-size: 16px;
-            opacity: 0.7;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
+        .equipment-image-placeholder {
+            min-height: 300px;
+            margin-bottom: 40px;
         }
+        .media-placeholders {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .media-placeholder {
+            aspect-ratio: 16 / 9;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .spec-table h3 {
+            font-size: 18px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        .spec-table ul {
+            list-style: none;
+        }
+        .spec-table li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+        }
+        .spec-table li span:first-child {
+            color: #aaa;
+        }
+        .spec-table li span:last-child {
+            text-align: right;
+            color: #fff;
+        }
+
 
         /* --- About Section --- */
         #about {
@@ -656,6 +727,15 @@
         .contact-item a:hover {
             opacity: 1;
         }
+        
+        /* --- Site Footer --- */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            color: #777;
+            background-color: #000;
+        }
 
         /* --- Video Error Handling --- */
         .video-error {
@@ -680,9 +760,12 @@
         }
 
         /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .equipment-details { grid-template-columns: 1fr; }
+        }
         @media (max-width: 768px) {
             h1 { font-size: 48px; }
-            .work-grid, .services-grid, .about-content, .contact-info { grid-template-columns: 1fr; }
+            .work-grid, .about-content, .contact-info { grid-template-columns: 1fr; }
             .hero { padding: 20px; }
             nav a { margin: 0 15px; font-size: 12px; }
             .footer-links {
@@ -699,7 +782,6 @@
         }
         @media (max-width: 480px) {
             h1 { font-size: 36px; }
-            .logo { font-size: 16px; padding: 10px 15px; }
             nav { padding: 12px 20px; }
             nav a { margin: 0 10px; font-size: 11px; }
             .work-title, .services-title, .about-text h2, .contact-title, .showreel-title { font-size: 28px; }
@@ -728,30 +810,16 @@
         </div>
 
         <div class="hero-content">
-            <!-- <div class="logo">AJ</div> --> <!-- REMOVED -->
             <h1>Alec Jungerius</h1>
             <p class="subtitle">Fulltime Filmmaker</p>
 
             <nav>
-                <a href="#work">Work</a>
                 <a href="#showreel">Showreel</a>
+                <a href="#work">Work</a>
                 <a href="#services">Equipment & Services</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </nav>
-        </div>
-
-        <div class="footer-links">
-            <a href="#contact" class="contact-btn">Contact</a>
-            
-            <div class="social-links">
-                <a href="https://www.instagram.com/alec.jun/" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-                </a>
-                <a href="https://nl.linkedin.com/in/alec-jungerius-1a0045291" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_icon.svg" alt="LinkedIn">
-                </a>
-            </div>
         </div>
 
         <div class="scroll-down">
@@ -762,80 +830,20 @@
         </div>
     </section>
 
-    <!-- SECTION 2: Work Portfolio -->
-    <section id="work">
-        <h2 class="work-title">Recent Work</h2>
-        <div class="work-grid">
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Music Video Project</h3>
-                        <p>Een cinematische muziekvideo met dramatische belichting en creatieve camera bewegingen.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Commercial Campaign</h3>
-                        <p>Een professionele commercial voor een lokaal bedrijf met moderne productie technieken.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Documentary Film</h3>
-                        <p>Een verhaal gedreven documentaire over lokale ondernemers en hun passie voor hun vak.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Event Coverage</h3>
-                        <p>Professionele evenement videografie met multi-camera setup en live streaming mogelijkheden.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Corporate Video</h3>
-                        <p>Een strakke corporate video die de waarden en missie van het bedrijf perfect weergeeft.</p>
-                    </div>
-                </a>
-            </div>
-            <div class="work-item">
-                <a href="#" target="_blank">
-                    <div style="width: 100%; height: 280px; background: rgba(255,255,255,0.05); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center; border: 2px dashed rgba(255,255,255,0.2);">
-                        <span style="opacity: 0.5; font-size: 16px;">Project Image</span>
-                    </div>
-                    <div class="work-content">
-                        <h3>Short Film</h3>
-                        <p>Een emotionele korte film die het verhaal vertelt van persoonlijke groei en overwinning.</p>
-                    </div>
-                </a>
-            </div>
+    <!-- Fixed Footer Links -->
+    <div class="footer-links">
+        <a href="#contact" class="contact-btn">Contact</a>
+        <div class="social-links">
+            <a href="https://www.instagram.com/alec.jun/" target="_blank">
+                <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram">
+            </a>
+            <a href="https://nl.linkedin.com/in/alec-jungerius-1a0045291" target="_blank">
+                <img src="LinkedIn_logo_initials.png" alt="LinkedIn">
+            </a>
         </div>
-    </section>
+    </div>
 
-    <!-- SECTION 3: Showreel -->
+    <!-- SECTION 2: Showreel -->
     <section id="showreel">
         <h2 class="showreel-title">Showreel</h2>
         <div class="showreel-container">
@@ -846,39 +854,99 @@
         </div>
     </section>
 
+    <!-- SECTION 3: Work Portfolio -->
+    <section id="work">
+        <h2 class="work-title">Recent Work</h2>
+        <div class="work-grid">
+            <div class="work-item">
+                <a href="#" target="_blank">
+                    <div class="equipment-image-placeholder" style="height: 280px; margin-bottom: 0; border-radius: 8px 8px 0 0;">Project Image</div>
+                    <div class="work-content">
+                        <h3>Music Video Project</h3>
+                        <p>Een cinematische muziekvideo met dramatische belichting en creatieve camera bewegingen.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="work-item">
+                <a href="#" target="_blank">
+                    <div class="equipment-image-placeholder" style="height: 280px; margin-bottom: 0; border-radius: 8px 8px 0 0;">Project Image</div>
+                    <div class="work-content">
+                        <h3>Commercial Campaign</h3>
+                        <p>Een professionele commercial voor een lokaal bedrijf met moderne productie technieken.</p>
+                    </div>
+                </a>
+            </div>
+             <div class="work-item">
+                <a href="#" target="_blank">
+                    <div class="equipment-image-placeholder" style="height: 280px; margin-bottom: 0; border-radius: 8px 8px 0 0;">Project Image</div>
+                    <div class="work-content">
+                        <h3>Documentary Film</h3>
+                        <p>Een verhaal gedreven documentaire over lokale ondernemers en hun passie voor hun vak.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION 4: Equipment & Services -->
     <section id="services">
-        <h2 class="services-title">Equipment & Services</h2>
-        <div class="services-grid">
-            <div class="service-item">
-                <div class="service-icon">🚁</div>
-                <h3>Cinematic FPV</h3>
-                <p>High-speed, dynamische shots voor films en muziekvideo's die onmogelijk zijn met traditionele drones.</p>
+        <div class="services-container">
+            <h2 class="services-title">Equipment & Services</h2>
+            <div class="tabs-container">
+                <button class="tab-link active" onclick="openTab(event, 'fpv')">FPV</button>
+                <button class="tab-link" onclick="openTab(event, 'classic')">Classic</button>
             </div>
-            <div class="service-item">
-                <div class="service-icon">🏠</div>
-                <h3>Real Estate Tours</h3>
-                <p>Immersive 'one-take' virtuele tours die kijkers naadloos door een pand leiden, van buiten naar binnen.</p>
+    
+            <div id="fpv" class="tab-content" style="display: block;">
+                <div class="equipment-item">
+                    <button class="accordion active">CineLifter</button>
+                    <div class="panel" style="max-height: fit-content;"> <!-- Expanded by default -->
+                        <div class="equipment-details">
+                            <div class="equipment-col-left">
+                                <div class="equipment-image-placeholder">CineLifter Drone Image</div>
+                                <div class="specs-grid">
+                                    <div class="spec-table">
+                                        <h3>Camera Spec</h3>
+                                        <ul>
+                                            <li><span>Camera</span><span>BMPCC 4k</span></li>
+                                            <li><span>Max resolution</span><span>4k at 60fps</span></li>
+                                            <li><span>Max FPS</span><span>120fps in 2.8k</span></li>
+                                            <li><span>Codec</span><span>Blackmagic RAW</span></li>
+                                            <li><span>Lenses</span><span>Laowa: 7.5mm f/2</span></li>
+                                            <li><span>Live feed</span><span>5" SDI feed</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="spec-table">
+                                        <h3>Drone Specs</h3>
+                                        <ul>
+                                            <li><span>Flight time</span><span>6-10min</span></li>
+                                            <li><span>Range (obstacle free)</span><span>3km</span></li>
+                                            <li><span>Speed</span><span>100km/h</span></li>
+                                            <li><span>Size</span><span>46x52x20cm</span></li>
+                                            <li><span>Weight</span><span>1.3kg</span></li>
+                                            <li><span>Double operator</span><span>No</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="equipment-col-right">
+                                <p class="equipment-description">
+                                    For the signature FPV look with true cinematic quality, this custom-built Cinelifter carries a stripped-down Blackmagic Pocket 4K camera.
+                                    This setup is ideal for capturing high-speed chases, intricate aerial maneuvers, and scenes requiring a close-up, first-person perspective, all while maintaining the rich detail and color depth that professional production demands.
+                                </p>
+                                <div class="media-placeholders">
+                                    <div class="media-placeholder">HIGH SPEED STABILITY</div>
+                                    <div class="media-placeholder">ACTION SHOT</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more FPV drones here as new .equipment-item divs -->
             </div>
-            <div class="service-item">
-                <div class="service-icon">🏎️</div>
-                <h3>Action Sports</h3>
-                <p>Het met precisie en behendigheid volgen van snel bewegende onderwerpen voor adembenemende actiescènes.</p>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">🏟️</div>
-                <h3>Event Coverage</h3>
-                <p>Unieke perspectieven van concerten, festivals en zakelijke evenementen die een 'wow'-factor toevoegen.</p>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">🏗️</div>
-                <h3>Industrial Inspection</h3>
-                <p>Veilig en efficiënt inspecteren van moeilijk bereikbare infrastructuur, bouwplaatsen en bedrijfsmiddelen.</p>
-            </div>
-            <div class="service-item">
-                <div class="service-icon">💡</div>
-                <h3>Creative Storytelling</h3>
-                <p>De creatieve grenzen verleggen door FPV-beelden te integreren in een groter verhaal.</p>
+    
+            <div id="classic" class="tab-content">
+                 <p style="text-align: center; color: #aaa; padding: 40px 0;">Classic drone equipment details coming soon.</p>
             </div>
         </div>
     </section>
@@ -924,16 +992,12 @@
                     <p><a href="https://www.instagram.com/alec.jun/" target="_blank">@alec.jun</a></p>
                 </div>
             </div>
-            <div class="social-links" style="margin-top: 40px; display: inline-flex; gap: 20px;">
-                <a href="https://www.instagram.com/alec.jun/" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-                </a>
-                <a href="https://nl.linkedin.com/in/alec-jungerius-1a0045291" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_icon.svg" alt="LinkedIn">
-                </a>
-            </div>
         </div>
     </section>
+
+    <footer class="site-footer">
+        © 2025 Alec Jungerius. All rights reserved.
+    </footer>
 
     <script>
         // --- Page Setup ---
@@ -977,7 +1041,7 @@
             });
         });
 
-        // UPDATED: Effects on scroll
+        // Effects on scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
@@ -987,45 +1051,85 @@
             
             // Parallax effect for hero section background
             if (hero && scrolled < viewportHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                // Keep the original parallax effect if desired, or remove for simple fade.
+                // hero.style.transform = `translateY(${scrolled * 0.5}px)`; 
             }
 
             // Fade out hero content as user scrolls down
             if (heroContent) {
-                // Content is fully faded at 50% of screen height scroll
                 const fadeOutPoint = viewportHeight * 0.5;
                 let opacityValue = 1 - (scrolled / fadeOutPoint);
                 heroContent.style.opacity = Math.max(0, opacityValue);
+                heroContent.style.pointerEvents = opacityValue <= 0 ? 'none' : 'auto';
             }
             
-            // Fade in footer links on scroll
+            // Fade in FIXED footer links when hero section is scrolled past
             if (footerLinks) {
-                if (scrolled > 150) { // A small threshold to start the fade in
-                    footerLinks.style.opacity = '1';
+                if (scrolled > 200) { // Fade in earlier
+                    footerLinks.classList.add('visible');
                 } else {
-                    footerLinks.style.opacity = '0';
+                    footerLinks.classList.remove('visible');
                 }
             }
         });
 
-        // Intersection Observer for fade-in animations
+
+        // Intersection Observer for fade-in animations on other sections
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // Optional: stop observing after animation
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.work-item, .service-item, .about-content, .contact-content').forEach((item, index) => {
+        document.querySelectorAll('.work-item, .about-content, .contact-content, .showreel-container, .services-container').forEach((item, index) => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(50px)';
             item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            item.style.transitionDelay = `${(item.classList.contains('work-item') || item.classList.contains('service-item')) ? index * 0.1 : 0}s`;
+            item.style.transitionDelay = `${(item.classList.contains('work-item')) ? index * 0.1 : 0}s`;
             observer.observe(item);
         });
+
+        // --- Equipment & Services Tabs & Accordion ---
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        const accordions = document.querySelectorAll(".accordion");
+        accordions.forEach(acc => {
+            acc.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        });
+        
+        // Set initial state for default open accordion
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultOpenPanel = document.querySelector('.accordion.active + .panel');
+            if (defaultOpenPanel) {
+                defaultOpenPanel.style.maxHeight = defaultOpenPanel.scrollHeight + "px";
+            }
+        });
+
     </script>
 
 </body>
