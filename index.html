@@ -136,7 +136,7 @@
         }
 
         h1 {
-            font-family: 'Times New Roman', Times, serif;
+            /* font-family: 'Times New Roman', Times, serif; */ /* <-- UPDATED */
             font-size: 64px;
             margin: 20px 0;
             font-weight: 300;
@@ -205,6 +205,8 @@
             align-items: center;
             gap: 30px;
             z-index: 10;
+            opacity: 0; /* <-- UPDATED */
+            transition: opacity 0.5s ease-in-out; /* <-- UPDATED */
         }
 
         .contact-btn {
@@ -716,7 +718,7 @@
     <section class="hero">
         <div class="background-video-container">
             <video loop muted autoplay playsinline id="video">
-                <source src="ALEC - SLECHT NIEUWS - VIDEOCLIP.mp4" type="video/mp4">
+                <source src="ALEC - SLECHT NIEUWS - VIDEOCLIPHD.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <div class="video-error" id="videoError" style="display: none;">
@@ -726,14 +728,14 @@
         </div>
 
         <div class="hero-content">
-            <div class="logo">AJ</div>
+            <!-- <div class="logo">AJ</div> --> <!-- REMOVED -->
             <h1>Alec Jungerius</h1>
             <p class="subtitle">Fulltime Filmmaker</p>
 
             <nav>
-                <a href="#showreel">Showreel</a>
                 <a href="#work">Work</a>
-                <a href="#services">FPV Showcase</a>
+                <a href="#showreel">Showreel</a>
+                <a href="#services">Equipment & Services</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -742,38 +744,25 @@
         <div class="footer-links">
             <a href="#contact" class="contact-btn">Contact</a>
             
-            <!-- REMOVED: Volume Control -->
-
             <div class="social-links">
-                <a href="https://instagram.com" target="_blank">
+                <a href="https://www.instagram.com/alec.jun/" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
                 </a>
-                <a href="https://youtube.com" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+                <a href="https://nl.linkedin.com/in/alec-jungerius-1a0045291" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_icon.svg" alt="LinkedIn">
                 </a>
             </div>
         </div>
 
         <div class="scroll-down">
-           <a href="#showreel">
+           <a href="#work">
                <span></span>
                Scroll
            </a>
         </div>
     </section>
 
-    <!-- SECTION 2: Showreel -->
-    <section id="showreel">
-        <h2 class="showreel-title">Showreel</h2>
-        <div class="showreel-container">
-            <video controls poster="https://via.placeholder.com/1000x563.png/111111/FFFFFF?text=Showreel+Poster" id="showreel-video">
-                <source src="path/to/your/showreel.mp4" type="video/mp4">
-                Your browser does not support the video tag. Please update your showreel video path.
-            </video>
-        </div>
-    </section>
-
-    <!-- SECTION 3: Work Portfolio -->
+    <!-- SECTION 2: Work Portfolio -->
     <section id="work">
         <h2 class="work-title">Recent Work</h2>
         <div class="work-grid">
@@ -846,9 +835,20 @@
         </div>
     </section>
 
-    <!-- SECTION 4: FPV Drone Showcase -->
+    <!-- SECTION 3: Showreel -->
+    <section id="showreel">
+        <h2 class="showreel-title">Showreel</h2>
+        <div class="showreel-container">
+            <video controls poster="https://via.placeholder.com/1000x563.png/111111/FFFFFF?text=Showreel+Poster" id="showreel-video">
+                <source src="path/to/your/showreel.mp4" type="video/mp4">
+                Your browser does not support the video tag. Please update your showreel video path.
+            </video>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Equipment & Services -->
     <section id="services">
-        <h2 class="services-title">FPV Drone Showcase</h2>
+        <h2 class="services-title">Equipment & Services</h2>
         <div class="services-grid">
             <div class="service-item">
                 <div class="service-icon">🚁</div>
@@ -909,23 +909,27 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <h3>Email</h3>
-                    <p><a href="mailto:alec.jungerius@example.com">alec.jungerius@example.com</a></p>
+                    <p><a href="mailto:Alec.jun@icloud.com">Alec.jun@icloud.com</a></p>
                 </div>
                 <div class="contact-item">
                     <h3>Phone</h3>
-                    <p><a href="tel:+31612345678">+31 6 12 34 56 78</a></p>
+                    <p><a href="tel:+31617167646">+31 6 17167646</a></p>
                 </div>
                 <div class="contact-item">
                     <h3>Location</h3>
                     <p>Nederland</p>
                 </div>
+                 <div class="contact-item">
+                    <h3>Instagram</h3>
+                    <p><a href="https://www.instagram.com/alec.jun/" target="_blank">@alec.jun</a></p>
+                </div>
             </div>
             <div class="social-links" style="margin-top: 40px; display: inline-flex; gap: 20px;">
-                <a href="https://instagram.com" target="_blank">
+                <a href="https://www.instagram.com/alec.jun/" target="_blank">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
                 </a>
-                <a href="https://youtube.com" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+                <a href="https://nl.linkedin.com/in/alec-jungerius-1a0045291" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_icon.svg" alt="LinkedIn">
                 </a>
             </div>
         </div>
@@ -973,15 +977,34 @@
             });
         });
 
-        // Parallax effect for hero section
+        // UPDATED: Effects on scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
             const heroContent = document.querySelector('.hero-content');
+            const footerLinks = document.querySelector('.footer-links');
+            const viewportHeight = window.innerHeight;
             
-            if (hero && scrolled < window.innerHeight) {
+            // Parallax effect for hero section background
+            if (hero && scrolled < viewportHeight) {
                 hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+
+            // Fade out hero content as user scrolls down
+            if (heroContent) {
+                // Content is fully faded at 50% of screen height scroll
+                const fadeOutPoint = viewportHeight * 0.5;
+                let opacityValue = 1 - (scrolled / fadeOutPoint);
+                heroContent.style.opacity = Math.max(0, opacityValue);
+            }
+            
+            // Fade in footer links on scroll
+            if (footerLinks) {
+                if (scrolled > 150) { // A small threshold to start the fade in
+                    footerLinks.style.opacity = '1';
+                } else {
+                    footerLinks.style.opacity = '0';
+                }
             }
         });
 
